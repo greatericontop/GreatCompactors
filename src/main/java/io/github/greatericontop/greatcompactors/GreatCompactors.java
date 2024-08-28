@@ -1,8 +1,8 @@
-package io.github.greatericontop.personalcompactors;
+package io.github.greatericontop.greatcompactors;
 
 import org.bukkit.plugin.java.JavaPlugin;
 
-public class PersonalCompactors extends JavaPlugin {
+public class GreatCompactors extends JavaPlugin {
 
     @Override
     public void onEnable() {

@@ -1,6 +1,6 @@
-name: GreatCrafts
+name: GreatCompactors
 version: "${project.version}"
-main: io.github.greatericontop.personalcompactors.PersonalCompactors
+main: io.github.greatericontop.greatcompactors.GreatCompactors
 api-version: 1.21
 authors: [greateric]
 
