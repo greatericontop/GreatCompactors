@@ -1,0 +1,19 @@
+# GreatCompactors config file
+
+
+# Maximum number of slots in the personal compactor (limit 54). This is the limit to how many items it will compact
+# for each player. The inventory size of the compactor window will be this rounded up to a multiple of 9.
+personal-compactor-max-slots: 5
+
+
+# This holds all recipes the personal compactor can use
+personal-compactor-recipes:
+  # Example: 9 gold nuggets -> 1 gold ingot
+    # :result:
+  - result: GOLD_INGOT
+    # :result-count:
+    result-count: 1
+    # :ingredients:
+    ingredients:
+      #
+      - GOLD_NUGGET: 9
