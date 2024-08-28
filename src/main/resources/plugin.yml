@@ -1,0 +1,9 @@
+name: GreatCrafts
+version: "${project.version}"
+main: io.github.greatericontop.personalcompactors.PersonalCompactors
+api-version: 1.21
+authors: [greateric]
+
+commands: {}
+
+permissions: {}
