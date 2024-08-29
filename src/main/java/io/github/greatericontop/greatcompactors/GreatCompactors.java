@@ -1,5 +1,6 @@
 package io.github.greatericontop.greatcompactors;
 
+import io.github.greatericontop.greatcompactors.internal.CompactorRecipe;
 import org.bukkit.Material;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -9,6 +10,9 @@ import java.util.List;
 import java.util.Map;
 
 public class GreatCompactors extends JavaPlugin {
+
+    private int personalCompactorMaxSlots = -1;
+    private Map<Material, List<CompactorRecipe>> recipes = new HashMap<>();
 
     @Override
     public void onEnable() {
@@ -21,6 +25,19 @@ public class GreatCompactors extends JavaPlugin {
     }
 
     public void loadConfig() {
+        int rawMaxSlots = this.getConfig().getInt("personal-compactor-max-slots");
+        if (rawMaxSlots < 1) {
+            this.getLogger().warning("personal-compactor-max-slots must be >= 1");
+            rawMaxSlots = 1;
+        }
+        if (rawMaxSlots > 54) {
+            this.getLogger().warning("personal-compactor-max-slots must be <= 54");
+            rawMaxSlots = 54;
+        }
+        personalCompactorMaxSlots = rawMaxSlots;
+
+        // RECIPES
+        recipes.clear();
         List<Map<String, Object>> rawCompactorRecipes;
         try {
             rawCompactorRecipes = (List<Map<String, Object>>) this.getConfig().getList("personal-compactor-recipes");
@@ -32,9 +49,7 @@ public class GreatCompactors extends JavaPlugin {
             this.getLogger().severe("personal-compactor-recipes section of config.yml is null or nonexistent! Assuming no recipes exist.");
             rawCompactorRecipes = new ArrayList<>();
         }
-
         for (Map<String, Object> recipeData : rawCompactorRecipes) {
-            // Input & input validation (pain)
             Object rawResultName = recipeData.get("result");
             if (!(rawResultName instanceof String)) {
                 this.getLogger().severe("Result name in compactor recipe must be a string! Skipping!");
@@ -77,9 +92,12 @@ public class GreatCompactors extends JavaPlugin {
                 }
                 requiredIngredients.put(ingredientMat, ingredientCount);
             }
-            //
-
-            // TODO: do something
+            // Add it
+            CompactorRecipe recipe = new CompactorRecipe(resultMat, resultCount, requiredIngredients);
+            if (!recipes.containsKey(resultMat)) {
+                recipes.put(resultMat, new ArrayList<>());
+            }
+            recipes.get(resultMat).add(recipe);
         }
 
     }
