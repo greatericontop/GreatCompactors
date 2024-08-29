@@ -8,12 +8,48 @@ personal-compactor-max-slots: 5
 
 # This holds all recipes the personal compactor can use
 personal-compactor-recipes:
+
   # Example: 9 gold nuggets -> 1 gold ingot
-    # :result:
+    # <result> The ID of the result item. It's usually the Minecraft ID in all capitals.
+    #          Can reference https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Material.html
   - result: GOLD_INGOT
-    # :result-count:
+    # <result-count> How many of the result item to give when all the ingredients have been obtained
     result-count: 1
-    # :ingredients:
+    # <ingredients> A list of the ingredients required
     ingredients:
-      #
+      # <material>: <count> for each ingredient you want to require
       - GOLD_NUGGET: 9
+
+  # Example of a compactor recipe that gives you 64 end portal frames automatically
+  # when you get 1 ender eye, 1 bedrock, and 32 obsidian
+  - result: END_PORTAL_FRAME
+    result-count: 64
+    ingredients:
+      - ENDER_EYE: 1
+      - BEDROCK: 1
+      - OBSIDIAN: 32
+
+  - result: GOLD_BLOCK
+    result-count: 1
+    ingredients:
+      - GOLD_INGOT: 9
+
+  - result: IRON_INGOT
+    result-count: 1
+    ingredients:
+      - IRON_NUGGET: 9
+
+  - result: IRON_BLOCK
+    result-count: 1
+    ingredients:
+      - IRON_INGOT: 9
+
+  - result: LAPIS_BLOCK
+    result-count: 1
+    ingredients:
+      - LAPIS_LAZULI: 9
+
+  - result: REDSTONE_BLOCK
+    result-count: 1
+    ingredients:
+      - REDSTONE: 9
