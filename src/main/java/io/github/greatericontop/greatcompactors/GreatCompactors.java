@@ -1,27 +1,49 @@
 package io.github.greatericontop.greatcompactors;
 
 import io.github.greatericontop.greatcompactors.internal.CompactorRecipe;
+import io.github.greatericontop.greatcompactors.internal.PlayerdataManager;
 import org.bukkit.Material;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class GreatCompactors extends JavaPlugin {
+    private static final String PLAYERDATA_YML = "playerdata.yml";
 
-    private int personalCompactorMaxSlots = -1;
-    private Map<Material, List<CompactorRecipe>> recipes = new HashMap<>();
+    public int personalCompactorMaxSlots = -1;
+    public Map<Material, List<CompactorRecipe>> recipes = new HashMap<>();
+
+    public YamlConfiguration playerdata = null;
+
+    public PlayerdataManager playerdataManager = null;
 
     @Override
     public void onEnable() {
 
-//        this.saveDefaultConfig();
-//        this.getConfig().options().copyDefaults(true);
-//        this.saveConfig();
-//        loadConfig();
+        this.saveDefaultConfig();
+        this.getConfig().options().copyDefaults(true);
+        this.saveConfig();
+        loadConfig();
 
+        File playerdataFile = new File(this.getDataFolder(), PLAYERDATA_YML);
+        playerdata = YamlConfiguration.loadConfiguration(playerdataFile);
+
+        playerdataManager = new PlayerdataManager(this);
+
+    }
+
+    public void saveAll() {
+        this.saveConfig();
+        try {
+            playerdata.save(new File(this.getDataFolder(), PLAYERDATA_YML));
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public void loadConfig() {
