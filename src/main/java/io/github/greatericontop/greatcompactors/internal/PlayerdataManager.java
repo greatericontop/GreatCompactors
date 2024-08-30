@@ -5,6 +5,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.List;
+import java.util.UUID;
 
 public class PlayerdataManager {
 
@@ -13,7 +14,8 @@ public class PlayerdataManager {
         this.plugin = plugin;
     }
 
-    public List<ItemStack> getCompactorInventory(String key) {
+    public List<ItemStack> getCompactorInventory(UUID player) {
+        String key = player.toString();
         YamlConfiguration yamlConfiguration = new YamlConfiguration();
         String string = plugin.playerdata.getString(key);
         if (string == null) {
@@ -27,7 +29,8 @@ public class PlayerdataManager {
         return (List<ItemStack>) yamlConfiguration.get("compactorinventory");
     }
 
-    public void setCompactorInventory(String key, List<ItemStack> playerdata) {
+    public void setCompactorInventory(UUID player, List<ItemStack> playerdata) {
+        String key = player.toString();
         YamlConfiguration yamlConfiguration = new YamlConfiguration();
         yamlConfiguration.set("compactorinventory", playerdata);
         plugin.playerdata.set(key, yamlConfiguration.saveToString());
