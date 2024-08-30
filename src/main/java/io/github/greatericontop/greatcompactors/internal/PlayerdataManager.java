@@ -33,8 +33,4 @@ public class PlayerdataManager {
         plugin.playerdata.set(key, yamlConfiguration.saveToString());
     }
 
-    public void saveAll() {
-        plugin.playerdata.save();
-    }
-
 }

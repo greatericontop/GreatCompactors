@@ -2,6 +2,7 @@ package io.github.greatericontop.greatcompactors;
 
 import io.github.greatericontop.greatcompactors.internal.CompactorRecipe;
 import io.github.greatericontop.greatcompactors.internal.PlayerdataManager;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -16,6 +17,7 @@ public class GreatCompactors extends JavaPlugin {
     private static final String PLAYERDATA_YML = "playerdata.yml";
 
     public int personalCompactorMaxSlots = -1;
+    private int autoSaveInterval = -1;
     public Map<Material, List<CompactorRecipe>> recipes = new HashMap<>();
 
     public YamlConfiguration playerdata = null;
@@ -34,6 +36,8 @@ public class GreatCompactors extends JavaPlugin {
         playerdata = YamlConfiguration.loadConfiguration(playerdataFile);
 
         playerdataManager = new PlayerdataManager(this);
+
+        Bukkit.getScheduler().runTaskTimer(this, this::saveAll, autoSaveInterval, autoSaveInterval);
 
     }
 
@@ -57,6 +61,13 @@ public class GreatCompactors extends JavaPlugin {
             rawMaxSlots = 54;
         }
         personalCompactorMaxSlots = rawMaxSlots;
+
+        int rawAutoSaveInterval = this.getConfig().getInt("autosave-interval");
+        if (rawAutoSaveInterval < 20) {
+            this.getLogger().warning("autosave-interval must be >= 20t (Saving every second is still not recommended!)");
+            rawAutoSaveInterval = 20;
+        }
+        autoSaveInterval = rawAutoSaveInterval;
 
         // RECIPES
         recipes.clear();

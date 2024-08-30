@@ -6,6 +6,10 @@
 personal-compactor-max-slots: 5
 
 
+# Autosave interval in ticks (default 90s).
+autosave-interval: 1800
+
+
 # This holds all recipes the personal compactor can use
 personal-compactor-recipes:
 
