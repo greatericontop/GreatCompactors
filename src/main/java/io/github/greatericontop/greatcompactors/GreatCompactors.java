@@ -1,5 +1,6 @@
 package io.github.greatericontop.greatcompactors;
 
+import io.github.greatericontop.greatcompactors.commands.GiveCompactorCommand;
 import io.github.greatericontop.greatcompactors.internal.CompactorRecipe;
 import io.github.greatericontop.greatcompactors.internal.PlayerdataManager;
 import org.bukkit.Bukkit;
@@ -36,6 +37,8 @@ public class GreatCompactors extends JavaPlugin {
         playerdata = YamlConfiguration.loadConfiguration(playerdataFile);
 
         playerdataManager = new PlayerdataManager(this);
+
+        this.getCommand("givecompactor").setExecutor(new GiveCompactorCommand());
 
         Bukkit.getScheduler().runTaskTimer(this, this::saveAll, autoSaveInterval, autoSaveInterval);
 

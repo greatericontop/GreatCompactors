@@ -4,6 +4,13 @@ main: io.github.greatericontop.greatcompactors.GreatCompactors
 api-version: 1.21
 authors: [greateric]
 
-commands: {}
+commands:
+  givecompactor:
+    description: Give a personal compactor to you
+    usage: /givecompactor
+    permission: greatcompactors.givecompactor
 
-permissions: {}
+permissions:
+  greatcompactors.givecompactor:
+    description: Allows /givecompactor
+    default: true
