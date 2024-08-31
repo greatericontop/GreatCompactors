@@ -33,6 +33,7 @@ public class CompactingListener implements Listener {
         // Get the recipes we're going to try to make
         List<CompactorRecipe> toMake = new ArrayList<>();
         for (ItemStack stack : plugin.playerdataManager.getCompactorInventory(player.getUniqueId())) {
+            if (stack == null || stack.getType() == Material.AIR)  continue;
             toMake.addAll(plugin.recipes.get(stack.getType()));
         }
 
