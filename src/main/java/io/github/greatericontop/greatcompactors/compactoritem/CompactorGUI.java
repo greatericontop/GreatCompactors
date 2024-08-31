@@ -68,8 +68,14 @@ public class CompactorGUI implements Listener {
         // Save on every click
         Player player = (Player) event.getWhoClicked();
         List<ItemStack> compactorInventory = plugin.playerdataManager.getCompactorInventory(player.getUniqueId());
+        // Handle nulls & make sure large enough
         if (compactorInventory == null) {
             compactorInventory = new ArrayList<>();
+        }
+        if (compactorInventory.size() < plugin.personalCompactorMaxSlots) {
+            for (int i = compactorInventory.size(); i < plugin.personalCompactorMaxSlots; i++) {
+                compactorInventory.add(null);
+            }
         }
         for (int i = 0; i < plugin.personalCompactorMaxSlots; i++) {
             compactorInventory.set(i, event.getView().getTopInventory().getItem(i));
