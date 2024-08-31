@@ -14,6 +14,7 @@ import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CompactorGUI implements Listener {
@@ -38,6 +39,9 @@ public class CompactorGUI implements Listener {
             gui.setItem(i, new ItemStack(Material.BLACK_STAINED_GLASS_PANE, 1));
         }
         List<ItemStack> savedItems = plugin.playerdataManager.getCompactorInventory(player.getUniqueId());
+        if (savedItems == null) {
+            savedItems = new ArrayList<>();
+        }
         for (int i = 0; i < savedItems.size() && i < size; i++) {
             gui.setItem(i, savedItems.get(i));
         }
