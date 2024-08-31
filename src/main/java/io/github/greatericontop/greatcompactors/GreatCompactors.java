@@ -2,6 +2,7 @@ package io.github.greatericontop.greatcompactors;
 
 import io.github.greatericontop.greatcompactors.commands.GiveCompactorCommand;
 import io.github.greatericontop.greatcompactors.compactoritem.CompactorGUI;
+import io.github.greatericontop.greatcompactors.compactoritem.PlacingPreventer;
 import io.github.greatericontop.greatcompactors.internal.CompactorRecipe;
 import io.github.greatericontop.greatcompactors.internal.PlayerdataManager;
 import org.bukkit.Bukkit;
@@ -40,6 +41,7 @@ public class GreatCompactors extends JavaPlugin {
         playerdataManager = new PlayerdataManager(this);
 
         this.getServer().getPluginManager().registerEvents(new CompactorGUI(this), this);
+        this.getServer().getPluginManager().registerEvents(new PlacingPreventer(), this);
 
         this.getCommand("givecompactor").setExecutor(new GiveCompactorCommand());
 
