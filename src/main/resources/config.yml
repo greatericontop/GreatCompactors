@@ -22,38 +22,38 @@ personal-compactor-recipes:
     # <ingredients> A list of the ingredients required
     ingredients:
       # <material>: <count> for each ingredient you want to require
-      - GOLD_NUGGET: 9
+      GOLD_NUGGET: 9
 
   # Example of a compactor recipe that gives you 64 end portal frames automatically
   # when you get 1 ender eye, 1 bedrock, and 32 obsidian
   - result: END_PORTAL_FRAME
     result-count: 64
     ingredients:
-      - ENDER_EYE: 1
-      - BEDROCK: 1
-      - OBSIDIAN: 32
+      ENDER_EYE: 1
+      BEDROCK: 1
+      OBSIDIAN: 32
 
   - result: GOLD_BLOCK
     result-count: 1
     ingredients:
-      - GOLD_INGOT: 9
+      GOLD_INGOT: 9
 
   - result: IRON_INGOT
     result-count: 1
     ingredients:
-      - IRON_NUGGET: 9
+      IRON_NUGGET: 9
 
   - result: IRON_BLOCK
     result-count: 1
     ingredients:
-      - IRON_INGOT: 9
+      IRON_INGOT: 9
 
   - result: LAPIS_BLOCK
     result-count: 1
     ingredients:
-      - LAPIS_LAZULI: 9
+      LAPIS_LAZULI: 9
 
   - result: REDSTONE_BLOCK
     result-count: 1
     ingredients:
-      - REDSTONE: 9
+      REDSTONE: 9
