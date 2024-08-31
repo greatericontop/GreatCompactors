@@ -20,6 +20,7 @@ public class GiveCompactorCommand implements CommandExecutor {
         }
         ItemStack compactor = new ItemStack(Material.DROPPER, 1);
         ItemMeta im = compactor.getItemMeta();
+        im.setDisplayName("§aPersonal Compactor");
         im.addEnchant(Enchantment.LUCK_OF_THE_SEA, 1, true);
         Util.setAsCompactor(im);
         compactor.setItemMeta(im);
