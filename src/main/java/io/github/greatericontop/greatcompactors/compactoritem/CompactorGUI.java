@@ -13,6 +13,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,7 +57,7 @@ public class CompactorGUI implements Listener {
 
     @EventHandler()
     public void onClick(InventoryClickEvent event) {
-        if (!event.getView().getTitle().equals(TITLE))  return;
+        if (!event.getView().getTitle().equals(TITLE)) return;
 
         // Cancel transactions involving the dead slots
         if (event.getClickedInventory() == event.getView().getTopInventory()) {
@@ -65,26 +66,29 @@ public class CompactorGUI implements Listener {
             }
         }
 
-        // Save on every click
-        Player player = (Player) event.getWhoClicked();
-        List<ItemStack> compactorInventory = plugin.playerdataManager.getCompactorInventory(player.getUniqueId());
-        // Handle nulls & make sure large enough
-        if (compactorInventory == null) {
-            compactorInventory = new ArrayList<>();
-        }
-        if (compactorInventory.size() < plugin.personalCompactorMaxSlots) {
-            for (int i = compactorInventory.size(); i < plugin.personalCompactorMaxSlots; i++) {
-                compactorInventory.add(null);
+        // Save on every click (the tick after to reflect updated inventory)
+        new BukkitRunnable() {
+            public void run() {
+                Player player = (Player) event.getWhoClicked();
+                List<ItemStack> compactorInventory = plugin.playerdataManager.getCompactorInventory(player.getUniqueId());
+                // Handle nulls & make sure large enough
+                if (compactorInventory == null) {
+                    compactorInventory = new ArrayList<>();
+                }
+                if (compactorInventory.size() < plugin.personalCompactorMaxSlots) {
+                    for (int i = compactorInventory.size(); i < plugin.personalCompactorMaxSlots; i++) {
+                        compactorInventory.add(null);
+                    }
+                }
+                for (int i = 0; i < plugin.personalCompactorMaxSlots; i++) {
+                    compactorInventory.set(i, event.getView().getTopInventory().getItem(i));
+                }
+                if (compactorInventory.size() > plugin.personalCompactorMaxSlots) {
+                    compactorInventory.subList(plugin.personalCompactorMaxSlots, compactorInventory.size()).clear();
+                }
+                plugin.playerdataManager.setCompactorInventory(player.getUniqueId(), compactorInventory);
             }
-        }
-        for (int i = 0; i < plugin.personalCompactorMaxSlots; i++) {
-            compactorInventory.set(i, event.getView().getTopInventory().getItem(i));
-        }
-        if (compactorInventory.size() > plugin.personalCompactorMaxSlots) {
-            compactorInventory.subList(plugin.personalCompactorMaxSlots, compactorInventory.size()).clear();
-        }
-        plugin.playerdataManager.setCompactorInventory(player.getUniqueId(), compactorInventory);
-
+        }.runTaskLater(plugin, 1L);
     }
 
 }
