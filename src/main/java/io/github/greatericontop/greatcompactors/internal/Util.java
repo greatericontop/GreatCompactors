@@ -1,6 +1,8 @@
 package io.github.greatericontop.greatcompactors.internal;
 
+import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
+import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataType;
@@ -19,6 +21,24 @@ public class Util {
 
     public static void setAsCompactor(ItemMeta im) {
         im.getPersistentDataContainer().set(pdcKey, PersistentDataType.BYTE, (byte) 1);
+    }
+
+    public static void addIncrementally(Inventory inv, Material mat, int amount) {
+        int maxStack = mat.getMaxStackSize();
+        while (amount > 0) {
+            int toAdd = Math.min(amount, maxStack);
+            amount -= toAdd;
+            inv.addItem(new ItemStack(mat, toAdd));
+        }
+    }
+
+    public static void removeIncrementally(Inventory inv, Material mat, int amount) {
+        int maxStack = mat.getMaxStackSize();
+        while (amount > 0) {
+            int toRemove = Math.min(amount, maxStack);
+            amount -= toRemove;
+            inv.removeItem(new ItemStack(mat, toRemove));
+        }
     }
 
 }

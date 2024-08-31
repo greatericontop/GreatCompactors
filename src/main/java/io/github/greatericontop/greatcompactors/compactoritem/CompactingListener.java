@@ -2,6 +2,7 @@ package io.github.greatericontop.greatcompactors.compactoritem;
 
 import io.github.greatericontop.greatcompactors.GreatCompactors;
 import io.github.greatericontop.greatcompactors.internal.CompactorRecipe;
+import io.github.greatericontop.greatcompactors.internal.Util;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -62,10 +63,9 @@ public class CompactingListener implements Listener {
                 Material mat = entry.getKey();
                 int costEach = entry.getValue();
                 int toRemove = costEach * amountToMake;
-                player.getInventory().remove(new ItemStack(mat, toRemove));
+                Util.removeIncrementally(player.getInventory(), mat, toRemove);
             }
-            ItemStack result = new ItemStack(recipe.result(), amountToMake * recipe.resultCount());
-            player.getInventory().addItem(result);
+            Util.addIncrementally(player.getInventory(), recipe.result(), amountToMake * recipe.resultCount());
             player.sendMessage(String.format("§7[Debug] compacted %s x%d (x%d=%d)", recipe.result(), recipe.resultCount(), amountToMake, amountToMake * recipe.resultCount()));
         }
 
