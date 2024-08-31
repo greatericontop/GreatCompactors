@@ -41,6 +41,11 @@ public class GreatCompactors extends JavaPlugin {
 
     }
 
+    @Override
+    public void onDisable() {
+        saveAll();
+    }
+
     public void saveAll() {
         this.saveConfig();
         try {
