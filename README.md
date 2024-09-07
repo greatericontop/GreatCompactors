@@ -1,5 +1,7 @@
 # GreatCompactors
 
+![Demo](https://raw.githubusercontent.com/greatericontop/GreatCompactors/main/assets/demo.gif)
+
 GreatCompactors is a plugin that allows players to automatically compact items in their inventory, Hypixel Skyblock style.
 
 ## Quick Start for Server Owners
