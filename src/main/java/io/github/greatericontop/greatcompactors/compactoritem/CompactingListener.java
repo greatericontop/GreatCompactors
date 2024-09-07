@@ -65,7 +65,7 @@ public class CompactingListener implements Listener {
                 Material mat = entry.getKey();
                 int costEach = entry.getValue();
                 int toRemove = costEach * amountToMake;
-                Util.removeIncrementally(player.getInventory(), mat, toRemove);
+                Util.removeWithoutRegardingIM(player.getInventory(), mat, toRemove);
             }
             Util.addIncrementally(player.getInventory(), recipe.result(), amountToMake * recipe.resultCount());
             player.sendMessage(String.format("§7[Debug] compacted %s x%d (x%d=%d)", recipe.result(), recipe.resultCount(), amountToMake, amountToMake * recipe.resultCount()));

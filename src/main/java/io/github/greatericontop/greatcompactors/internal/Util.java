@@ -32,12 +32,20 @@ public class Util {
         }
     }
 
-    public static void removeIncrementally(Inventory inv, Material mat, int amount) {
-        int maxStack = mat.getMaxStackSize();
-        while (amount > 0) {
-            int toRemove = Math.min(amount, maxStack);
-            amount -= toRemove;
-            inv.removeItem(new ItemStack(mat, toRemove));
+    public static void removeWithoutRegardingIM(Inventory inv, Material mat, int amount) {
+        int leftToRemove = amount;
+        for (int i = 0; i < inv.getSize(); i++) {
+            ItemStack stackHere = inv.getItem(i);
+            if (stackHere == null || stackHere.getType() != mat)  continue;
+            int amountHere = stackHere.getAmount();
+            if (amountHere <= leftToRemove) {
+                inv.clear(i);
+                leftToRemove -= amountHere;
+            } else {
+                stackHere.setAmount(amountHere - leftToRemove);
+                inv.setItem(i, stackHere);
+                break;
+            }
         }
     }
 
