@@ -13,4 +13,4 @@ commands:
 permissions:
   greatcompactors.givecompactor:
     description: Allows /givecompactor
-    default: true
+    default: op
