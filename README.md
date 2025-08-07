@@ -6,7 +6,7 @@ GreatCompactors is a plugin that allows players to automatically compact items i
 
 ## Quick Start for Server Owners
 
-This plugin works out of the box. Simply add it to your plugins folder.
+This plugin works out of the box. Simply add the jar file to your plugins folder and restart your server.
 
 You can give yourself the personal compactor item using `/givecompactor`.
 By default, these are unobtainable in survival.
